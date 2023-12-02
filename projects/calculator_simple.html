@@ -1,0 +1,115 @@
+
+<html>
+    <head>
+        
+        <style>  
+            table {
+                width:250px;
+            }
+
+            tr, td {
+                border: 1px solid black;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .butn
+            {
+                width: 100%;
+                /* border-radius: 10%; */
+            }
+            
+        </style>
+    </head>
+
+<body>
+    <center>
+        <h1>Calculator</h1>
+        <table  style="background-color:rgb(206, 212, 213)">
+            <tr>
+                <td colspan="4"><input type="text" id="inputbox" readonly></td>
+            </tr>
+            <tr>
+                <td><button class="butn" onclick="clearinputbox()">C</button></td>
+                <td><button class="butn" onclick="val('0')">0</button></td>
+                <td><button class="butn" onclick="val('.')">.</button></td>
+                <td><button class="butn" onclick="valop('/')">/</button></td>
+            </tr>
+            <tr>
+                <td ><button class="butn" onclick="val('7')">7</button></td>
+                <td><button class="butn" onclick="val('8')">8</button></td>
+                <td><button class="butn" onclick="val('9')">9</button></td>
+                <td><button class="butn" onclick="valop('*')">*</button></td>
+            </tr>
+            <tr>
+                <td><button class="butn" onclick="val('4')">4</button></td>
+                <td><button class="butn" onclick="val('5')">5</button></td>
+                <td><button class="butn" onclick="val('6')">6</button></td>
+                <td><button class="butn" onclick="valop('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button class="butn" onclick="val('1')">1</button></td>
+                <td><button class="butn" onclick="val('2')">2</button></td>
+                <td><button class="butn" onclick="val('3')">3</button></td>
+                <td><button class="butn" onclick="valop('+')">+</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button class="butn" onclick="del()"><<</button></td>
+                <td><button class="butn" onclick="val('(')">(</button></td>
+                <td><button class="butn" onclick="val(')')">)</button></td>
+                <!-- <td><button class="butn" onclick="val('+')">+</button></td> -->
+            </tr>
+            <tr>
+                <td colspan="4" bgcolor="#708080" >
+                <button class="butn" onclick="calculate()">=</button>
+                </td>
+            </tr>
+        </table>
+   </center>
+
+<script>
+  var present_value = "";
+  var op  = '';
+
+  function val(value) {
+    present_value += value;
+    document.getElementById("inputbox").value = present_value;
+    op = '';
+  }
+
+  function valop(value) {
+    if(op.length == 0){  // no previous operator
+        present_value += value;
+        document.getElementById("inputbox").value = present_value;
+    } else {
+        // do nothing
+    }
+
+    op = value;
+  }
+
+
+  function del(){
+    // alert('Agartala'.substring(2, 5)); art
+    present_value = present_value.substring(0, (present_value.length - 1));
+    document.getElementById("inputbox").value = present_value;
+
+  }
+
+  function clearinputbox() {
+    present_value = "";
+    document.getElementById("inputbox").value = "";
+  }
+
+  function calculate() {
+      var result = eval(present_value);
+      document.getElementById("inputbox").value = result;
+      present_value = ""; //reset
+  } 
+
+</script>
+</body>
+</html>
+
+
+

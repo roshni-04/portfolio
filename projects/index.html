@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+}
+    </style>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div id="board" class="board">
+        <button class="cell" onclick="handleClick(0)"></button>
+        <button class="cell" onclick="handleClick(1)"></button>
+        <button class="cell" onclick="handleClick(2)"></button>
+        <button class="cell" onclick="handleClick(3)"></button>
+        <button class="cell" onclick="handleClick(4)"></button>
+        <button class="cell" onclick="handleClick(5)"></button>
+        <button class="cell" onclick="handleClick(6)"></button>
+        <button class="cell" onclick="handleClick(7)"></button>
+        <button class="cell" onclick="handleClick(8)"></button>
+    </div>
+    <script>
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        function handleClick(index) {
+            if (gameBoard[index] === '' && gameActive) {
+                gameBoard[index] = currentPlayer;
+                document.getElementsByClassName('cell')[index].innerText = currentPlayer;
+
+                if (checkWin()) {
+                    alert(`${currentPlayer} wins!`);
+                    resetGame();
+                } else if (gameBoard.every(cell => cell !== '')) {
+                    alert('It\'s a tie!');
+                    resetGame();
+                } else {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                }
+            }
+        }
+
+        function checkWin() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            return winPatterns.some(pattern =>
+                pattern.every(index => gameBoard[index] === currentPlayer)
+            );
+        }
+
+        function resetGame() {
+            currentPlayer = 'X';
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+
+            const cells = document.getElementsByClassName('cell');
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].innerText = '';
+            }
+        }
+
+    </script>
+</body>
+</html>
